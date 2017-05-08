@@ -22,7 +22,7 @@ def Supersonic(string, *arg):
 			M = arg[i+1]
 		elif arg[i] == 'p': # specific heat
 			cp = arg[i+1]
-		elif arg[i] == 'PR': # pressure ration (Po/P)
+		elif arg[i] == 'PR': # pressure ratio (Po/P)
 			pr = arg[i+1]
 		elif arg[i] == 'R': # ideal gas law constant
 			R = arg[i+1]
@@ -114,6 +114,12 @@ def Supersonic(string, *arg):
 		else:
 			fmf = lambda m: xp - Supersonic('A/A*','M',m,'g',gamma)
 			retval = brentq(fmf,1.0,50.0)
+	elif string == 'Marsub':
+		if xp == 1.0:
+			retval = 1.0
+		else:
+			fmf = lambda m: xp - Supersonic('A/A*','M',m,'g',gamma)
+			retval = brentq(fmf,0.00001,1.0)
 
 	# normal shock
 	elif string == 'M2': # M >= 1.0
